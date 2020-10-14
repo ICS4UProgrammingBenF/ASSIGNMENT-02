@@ -8,11 +8,13 @@ import java.util.*;
  * Class PassFail
  */
 public class PassFail {
+  
   public static void main(String[] args) {
     
     //try to read the text file
     try {
-      File myObj = new File("DATA10.txt");
+      String outputString = "";
+      File myObj = new File("DATA12.txt");
       
       Scanner scanner = new Scanner(myObj);
       
@@ -56,19 +58,21 @@ public class PassFail {
           float finalProj = mProj * (wProj / 100);
           float finalQuiz = mQuiz * (wQuiz / 100);
           
-          if((finalTest + finalAssign + finalProj + finalQuiz) >= 50) {
+          float average = finalTest + finalAssign + finalProj + finalQuiz;
+          
+          if(average >= 50) {
             numPassed ++;
             System.out.println("Numpassed: " + numPassed);
           }
         }
-        
         //write to output file
-        FileWriter fileWriter = new FileWriter(outputFileName);
-        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        
-        bufferedWriter.newLine();
-        bufferedWriter.write("Students passed: " + numPassed);
+        outputString += "Students passed: " + numPassed + "\r\n";
       }
+      FileWriter fileWriter = new FileWriter(outputFileName);
+       
+      fileWriter.write(outputString);
+      
+      fileWriter.close();
     } catch(Exception e) {
       e.printStackTrace();
       System.exit(1);
